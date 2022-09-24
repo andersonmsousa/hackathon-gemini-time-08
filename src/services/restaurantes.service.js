@@ -8,3 +8,12 @@ export async function getRestaurantes(id) {
     throw err;
   }
 };
+
+export async function getRestauranteDetalhes(id) {
+  try {
+    const restaurantes = await Api.get(`/detalhes/${id}.json`);
+    return restaurantes.data;
+  } catch (err) {
+    throw err;
+  }
+};
