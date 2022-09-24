@@ -1,11 +1,12 @@
 import { Container, Typography, CircularProgress } from "@material-ui/core";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import RestauranteCard from "../../components/RestauranteCard/RestauranteCard";
 import { getRestaurantes } from "../../services/restaurantes.service";
 import "./style.css";
 
 function RestaurantesPage() {
+  const navigate = useNavigate();
   const [nomeCategoria, setNomeCategoria] = useState([]);
   const [restaurantesBaratinho, setRestaurantesBaratinho] = useState();
   const [restaurantesNoPreco, setRestaurantesNoPreco] = useState([]);
@@ -41,7 +42,9 @@ function RestaurantesPage() {
         </Typography>
       </div>
         {restaurantesBaratinho?.map(restaurante => (
-          <RestauranteCard key={restaurante.id} restaurante={restaurante}/>
+          <div key={restaurante.id} onClick={() => navigate(`/restaurante-detalhes/${restaurante.id}`)}>
+          <RestauranteCard restaurante={restaurante}/>
+        </div>
         ))}
       <div className="sub-header">
         <Typography variant="body1" color="primary">
@@ -49,7 +52,7 @@ function RestaurantesPage() {
         </Typography>
       </div>
       {restaurantesNoPreco?.map(restaurante => (
-        <div key={restaurante.id}>
+        <div key={restaurante.id} onClick={() => navigate(`/restaurante-detalhes/${restaurante.id}`)}>
           <RestauranteCard restaurante={restaurante}/>
         </div>
       ))}
@@ -59,7 +62,7 @@ function RestaurantesPage() {
         </Typography>
       </div>
       {restaurantesCaro?.map(restaurante => (
-        <div key={restaurante.id}>
+        <div key={restaurante.id} onClick={() => navigate(`/restaurante-detalhes/${restaurante.id}`)}>
           <RestauranteCard restaurante={restaurante}/>
         </div>
       ))}
